@@ -169,6 +169,8 @@ func (dec *Decoder) linearize(raw []byte) []Bar {
 }
 
 func (dec *Decoder) digitize(bars []Bar) (Barcode, error) {
+	dec.Barcode = make(Barcode, 0, 13)
+
 	const (
 		white = 0
 		black = 1
@@ -269,6 +271,8 @@ func (dec *Decoder) digitize(bars []Bar) (Barcode, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	dec.Barcode = append(Barcode{9}, dec.Barcode...)
 
 	return Barcode(dec.Barcode), nil
 }
